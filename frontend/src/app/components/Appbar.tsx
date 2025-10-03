@@ -21,7 +21,7 @@ export const Appbar = () => {
           onClick={() => router.push("/signin")}
         />
         <Button
-          childern="Sign up"
+          children="Sign up"
           size="small"
           type="primary"
           onClick={() => {

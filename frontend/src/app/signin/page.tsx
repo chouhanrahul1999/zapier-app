@@ -1,9 +1,17 @@
 "use client";
+import axios from "axios";
+import { useState } from "react";
 import { Button } from "../components/buttons/Button";
 import { CheckmarkFeatures } from "../components/Checkmark";
 import { InputBox } from "../components/input/InputBox";
+import { BACKEND_URL } from "../config";
+import { useRouter } from "next/navigation";
 
 export default function () {
+    const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div className="flex justify-between items-center p-16">
       <div className="max-w-lg flex flex-col justify-between p-4 gap-8">
@@ -24,12 +32,22 @@ export default function () {
           />
         </div>
       </div>
-      <div className="border border-gray-300 rounded-sm min-w-lg min-h-auto flex flex-col px-6 py-8 gap-4">
-        <InputBox lable="Email" type="text" placeholder="rahul@gmail.com" />
+      <div className="border border-gray-300 rounded-sm min-w-lg min-h-auto flex flex-col px-8 py-8 gap-4">
+        <InputBox
+          lable="Email"
+          type="text"
+          placeholder="rahul@gmail.com"
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
         <InputBox
           lable="Password"
           type="password"
           placeholder="raman@123"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
         />
         <div className="pt-2">
           <span>By signing up, you agree to Zapier's </span>
@@ -44,10 +62,17 @@ export default function () {
           <span>.</span>
         </div>
         <Button
-          childern="Get started for free"
+          children="Get started for free"
           size="large"
           type="primary"
-          onClick={() => {}}
+           onClick={async () => {
+            const res = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, {
+                username,
+                password
+            });
+            localStorage.setItem("token", res.data.token);
+            router.push("/dashboard")
+          }}
         />
         <div className="pt-2 flex justify-center items-center">
           <span>Don't have an account? </span>

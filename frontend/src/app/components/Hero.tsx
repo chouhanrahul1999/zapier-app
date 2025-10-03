@@ -19,14 +19,14 @@ export const Hero = () => {
         <div className="flex gap-4 pt-8">
           <Button
             size="medium"
-            childern="Get started free"
+            children="Get started free"
             type="primary"
             onClick={() => {}}
           />
           <Button
             size="medium"
-            childern="Contact Sale"
-            type="secondery"
+            children="Contact Sale"
+            type="secondary"
             onClick={() => {}}
           />
         </div>
