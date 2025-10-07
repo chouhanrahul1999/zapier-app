@@ -9,7 +9,7 @@ export const Appbar = () => {
   const router = useRouter();
 
   return (
-    <div className="flex border-b border-gray-300 justify-between py-3 px-8">
+    <div className="flex border-b border-gray-300 justify-between py-3 px-8 ">
       <div className="flex justify-center items-center"><Image src={logo} alt="Zapier Logo" width={100} height={44} /></div>
       <div className="flex gap-1">
         <LinkButton

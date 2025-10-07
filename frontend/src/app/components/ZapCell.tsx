@@ -4,14 +4,16 @@ interface ZapCell {
   name: string;
   index: number;
   icon: ReactNode;  
-  icon1: ReactNode;  
+  icon1: ReactNode;
+  onClick: () => void  
 
 }
 
-export const Zapcell = ({ name, index, icon, icon1 }: ZapCell) => {
+export const Zapcell = ({ name, index, icon, icon1, onClick }: ZapCell) => {
   return (
     <div>
-      <div className="border bg-white border-gray-300 w-sm rounded-sm p-2 flex gap-3 font-bold text-lg  items-center">
+      <div className="border hover:shadow-md bg-white border-gray-300 w-sm rounded-sm p-2 flex gap-3 font-bold text-lg  items-center cursor-pointer"
+      onClick={onClick} >
         {icon && <span className=" border text-gray-900 border-gray-300  p-2 rounded-sm">{icon}</span>}
         {index}.
         {name && <span className="flex-shrink-0 pr-12">{name}</span>}

@@ -20,7 +20,7 @@ router.post("/", middleware_1.authMiddleware, async (req, res) => {
             data: {
                 userId: parseInt(id),
                 triggerid: "",
-                Action: {
+                action: {
                     create: parseData.data.actions.map((x, index) => ({
                         actionId: x.AvailableActionId,
                         sortingId: index,
@@ -56,7 +56,7 @@ router.get("/", middleware_1.authMiddleware, async (req, res) => {
             userId: id,
         },
         include: {
-            Action: {
+            action: {
                 include: {
                     type: true,
                 },
@@ -83,7 +83,7 @@ router.get("/:zapId", middleware_1.authMiddleware, async (req, res) => {
             userId: id,
         },
         include: {
-            Action: {
+            action: {
                 include: {
                     type: true,
                 },
