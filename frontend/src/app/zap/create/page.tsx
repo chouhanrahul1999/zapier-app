@@ -18,7 +18,7 @@ export default function () {
   const [selectedTrigger, setSelectedTrigger] = useState<{
     id: string;
     name: string;
-    image: string;
+    image?: string;
   }>();
   const [modal, setModal] = useState<null | number>(null);
   const [selectedActions, setSelectedActions] = useState<
@@ -26,7 +26,8 @@ export default function () {
       index: number;
       availableActionId: string;
       availableActionName: string;
-      availableActionImage: string;
+      availableActionImage?: string;
+      metadata: any;
     }[]
   >([]);
 
@@ -42,28 +43,20 @@ export default function () {
               return;
             }
             try {
-              console.log("Selected trigger:", selectedTrigger);
-              console.log("Selected actions:", selectedActions);
-              console.log("Available actions from API:", availableActions);
               const response = await axios.post(`${BACKEND_URL}/api/v1/zap`, {
                 "availableTriggerId": selectedTrigger.id,
-                "triggerMetadata": {},
+                "triggerMetaData": {},
                 "actions": selectedActions
                   .filter(a => a.availableActionId)
-                  .map(a => {
-                    console.log("Mapping action:", a.availableActionId);
-                    return {
-                      AvailableActionId: a.availableActionId,
-                      actionMetadata: {}
-                    };
-                  })
+                  .map(a => ({
+                    AvailableActionId: a.availableActionId,
+                    actionMetadata: a.metadata
+                  }))
               }, {
                 headers: {
                   Authorization: localStorage.getItem("token"),
-                  "Content-Type": "application/json"
                 }
               });
-              console.log("Response:", response.data);
               router.push("/dashboard");
             } catch (error: any) {
               console.error("Failed to create zap:", error);
@@ -107,6 +100,7 @@ export default function () {
                   availableActionId: "",
                   availableActionName: "",
                   availableActionImage: "",
+                  metadata: {}
                 },
               ]);
             }}
@@ -142,6 +136,7 @@ export default function () {
                         availableActionId: "",
                         availableActionName: "",
                         availableActionImage: "",
+                        metadata: {}
                       },
                     ]);
                   }}
@@ -161,7 +156,8 @@ export default function () {
               props: null | {
                 name: string;
                 id: string;
-                image: string;
+                image?: string;
+                metadata: any
               }
             ) => {
               if (props === null) {
@@ -183,15 +179,16 @@ export default function () {
                     availableActionId: props.id,
                     availableActionName: props.name,
                     availableActionImage: props.image,
+                    metadata: props.metadata
                   };
                   return newActions;
                 });
               }
 
               setModal(null);
-            }}
+            }} 
           />
-        )}
+        )} 
       </div>
     </div>
   );
