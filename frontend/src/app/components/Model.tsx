@@ -87,6 +87,7 @@ export const Modle = ({
                           image
                         });
                       }
+                      
                     }}
                     key={id}
                     className="flex border border-gray-300 p-2 gap-2 items-center m-4 cursor-pointer rounded-sm hover:bg-gray-100"
